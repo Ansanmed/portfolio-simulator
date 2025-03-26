@@ -1,29 +1,34 @@
-import { TestBed } from '@angular/core/testing';
 import { AppComponent } from './app.component';
+import { MockBuilder, MockRender } from 'ng-mocks';
+import { ActivatedRoute, Router } from '@angular/router';
 
 describe('AppComponent', () => {
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [AppComponent],
-    }).compileComponents();
+  let component: AppComponent;
+
+  beforeEach(() => {
+    return MockBuilder(AppComponent)
+      .mock(ActivatedRoute, {
+        snapshot: {
+          paramMap: {
+            get: jest.fn().mockReturnValue('some-value'),
+          },
+          children: [], // Mockea children como un array vacío
+        },
+      } as unknown as ActivatedRoute)
+      .mock(Router, {
+        navigate: jest.fn(),
+      });
   });
 
   it('should create the app', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app).toBeTruthy();
+    const fixture = MockRender(AppComponent);
+    component = fixture.point.componentInstance;
+    expect(component).toBeDefined();
   });
 
-  it(`should have the 'portfolio-simulator' title`, () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app.title).toEqual('portfolio-simulator');
-  });
-
-  it('should render title', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('h1')?.textContent).toContain('Hello, portfolio-simulator');
+  it('should return false for isModalActive when no modal outlet exists', () => {
+    const fixture = MockRender(AppComponent);
+    component = fixture.point.componentInstance;
+    expect(component.isModalActive()).toBe(false);
   });
 });
