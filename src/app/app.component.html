@@ -1,2 +1,9 @@
-<router-outlet></router-outlet>
-<app-modal *ngIf="isModalActive()"></app-modal>
+<mat-toolbar color="primary">
+  <span>Portfolio Simulator</span>
+</mat-toolbar>
+<div>
+  <h1>Welcome to Portfolio Simulator</h1>
+  <button mat-raised-button color="primary" (click)="openLoginModal()">
+    Open Login from AppComponent
+  </button>
+</div>
