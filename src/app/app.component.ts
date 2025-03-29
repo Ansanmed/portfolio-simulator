@@ -4,11 +4,18 @@ import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { LoginComponent } from './components/login/login.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { RingChartComponent } from './components/ring-chart/ring-chart.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, MatDialogModule, MatButtonModule, MatToolbarModule],
+  imports: [
+    CommonModule,
+    MatDialogModule,
+    MatButtonModule,
+    MatToolbarModule,
+    RingChartComponent,
+  ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })
